@@ -39,7 +39,10 @@
       }
     ],
     "react/jsx-one-expression-per-line": "off",
-    "no-use-before-define": "off"
+    "no-use-before-define": "off",
+    "no-param-reassign": "off",
+    "prefer-destructuring": "off",
+    "react/require-default-props": "off"
   },
   "settings": {
     "import/resolver": {
