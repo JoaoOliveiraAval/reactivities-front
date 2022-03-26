@@ -1,16 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./app/layout/styles.css";
+import { BrowserRouter } from "react-router-dom";
 import App from "./app/layout/App";
 import reportWebVitals from "./reportWebVitals";
 import { store, StoreContext } from "./app/stores/store";
 
 ReactDOM.render(
-  <StoreContext.Provider value={store}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </StoreContext.Provider>,
+  <React.StrictMode>
+    <StoreContext.Provider value={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </StoreContext.Provider>
+  </React.StrictMode>,
   document.getElementById("root")
 );
 
