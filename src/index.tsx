@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import "react-calendar/dist/Calendar.css";
 import "./app/layout/styles.css";
 import { BrowserRouter } from "react-router-dom";
 import App from "./app/layout/App";
@@ -7,13 +8,11 @@ import reportWebVitals from "./reportWebVitals";
 import { store, StoreContext } from "./app/stores/store";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <StoreContext.Provider value={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </StoreContext.Provider>
-  </React.StrictMode>,
+  <StoreContext.Provider value={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </StoreContext.Provider>,
   document.getElementById("root")
 );
 

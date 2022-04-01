@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import axios, { AxiosResponse } from "axios";
 import { Activity } from "../models/activity";
 
