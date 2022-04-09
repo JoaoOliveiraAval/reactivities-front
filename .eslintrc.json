@@ -44,7 +44,14 @@
     "no-param-reassign": "off",
     "prefer-destructuring": "off",
     "react/require-default-props": "off",
-    "jsx-a11y/anchor-is-valid": "off"
+    "jsx-a11y/anchor-is-valid": "off",
+    "no-console": "off",
+    "react/no-unescaped-entities": "off",
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "react/no-array-index-key": "off", 
+    "@typescript-eslint/no-explicit-any": "off", 
+    "no-restricted-syntax": "off",
+    "no-prototype-builtins": "off"
   },
   "settings": {
     "import/resolver": {
