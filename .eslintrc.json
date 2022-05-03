@@ -51,7 +51,14 @@
     "react/no-array-index-key": "off", 
     "@typescript-eslint/no-explicit-any": "off", 
     "no-restricted-syntax": "off",
-    "no-prototype-builtins": "off"
+    "no-prototype-builtins": "off",
+    "react/destructuring-assignment": "off",
+    "react/jsx-props-no-spreading": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "@typescript-eslint/ban-types": "off", 
+    "no-useless-catch": "off",
+    "no-return-assign": "off",
+    "class-methods-use-this": "off"
   },
   "settings": {
     "import/resolver": {

@@ -1,5 +1,6 @@
-/* eslint-disable no-console */
+/* eslint-disable consistent-return */
 import { makeAutoObservable, runInAction } from "mobx";
+import { format } from "date-fns";
 import agent from "../api/agents";
 import { Activity } from "../models/activity";
 
@@ -12,7 +13,7 @@ export default class ActivityStore {
 
   loading = false;
 
-  loadingInitial = true;
+  loadingInitial = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -20,27 +21,27 @@ export default class ActivityStore {
 
   get activitiesByDate() {
     return Array.from(this.activityRegistry.values()).sort(
-      (a, b) => Date.parse(a.dates) - Date.parse(b.dates)
+      (a, b) => a.dates!.getTime() - b.dates!.getTime()
     );
   }
 
   get groupedActivities() {
     return Object.entries(
       this.activitiesByDate.reduce((activities, activity) => {
-        const date = activity.dates;
+        const date = format(activity.dates!, "dd MMM yyyy");
         activities[date] = activities[date]
           ? [...activities[date], activity]
           : [activity];
-
         return activities;
       }, {} as { [key: string]: Activity[] })
     );
   }
 
   loadActivities = async () => {
+    this.loadingInitial = true;
     try {
       const activities = await agent.Activities.list();
-      activities.forEach((activity) => {
+      activities.forEach((activity: Activity) => {
         this.setActivity(activity);
       });
       this.setLoadingInitial(false);
@@ -52,16 +53,14 @@ export default class ActivityStore {
 
   loadActivity = async (id: string) => {
     let activity = this.getActivity(id);
-
     if (activity) {
       this.selectedActivity = activity;
       return activity;
     }
-
     this.loadingInitial = true;
     try {
       activity = await agent.Activities.details(id);
-      this.setActivity(activity);
+      this.setActivity(activity!);
       runInAction(() => {
         this.selectedActivity = activity;
       });
@@ -70,16 +69,17 @@ export default class ActivityStore {
     } catch (error) {
       console.log(error);
       this.setLoadingInitial(false);
-      return undefined;
     }
   };
 
   private setActivity = (activity: Activity) => {
-    activity.dates = activity.dates.split("T")[0];
+    activity.dates = new Date(activity.dates!);
     this.activityRegistry.set(activity.id, activity);
   };
 
-  private getActivity = (id: string) => this.activityRegistry.get(id);
+  private getActivity = (id: string) => {
+    return this.activityRegistry.get(id);
+  };
 
   setLoadingInitial = (state: boolean) => {
     this.loadingInitial = state;
